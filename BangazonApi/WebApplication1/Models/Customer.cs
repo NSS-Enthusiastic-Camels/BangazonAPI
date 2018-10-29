@@ -1,3 +1,4 @@
+using BangazonApi;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace BangazonAPI
 
         public string LastName { get; set; }
 
-
+        public List<Product> products = new List<Product>();
     }
     
 

@@ -57,9 +57,9 @@ namespace BangazonApi.Controllers
         }
 
 
-        //Get specific customer
+        // GET api/Customer/5?_include=products
         [HttpGet("{id}", Name = "GetCustomer")]
-        public async Task<IActionResult> Get([FromRoute]int id)
+        public async Task<IActionResult> Get([FromRoute]int id, string _include)
         {
             string sql = $@"
             SELECT
@@ -70,10 +70,48 @@ namespace BangazonApi.Controllers
             WHERE c.Id = {id}
             ";
 
+            if (_include != null)
+            {
+                if (_include == "products")
+                {
+                    Dictionary<int, Customer> report = new Dictionary<int, Customer>();
+
+                    IEnumerable<Customer> custAndProd = Connection.Query<Customer, Product, Customer>(
+                       $@"
+                    SELECT c.Id,
+                        c.FirstName,
+                        c.LastName,
+                        p.Id,
+                        p.Title,
+                        p.Price,
+                        p.Quantity,
+                        p.Description,
+                        p.ProductTypeId,
+                        p.CustomerId
+                    FROM Customer c
+                    JOIN Product p ON c.Id = p.CustomerId
+                    WHERE c.Id = {id};
+                ",
+                        (generatedCustomer, generatedProduct) => {
+                            if (!report.ContainsKey(generatedCustomer.Id))
+                            {
+                                report[generatedCustomer.Id] = generatedCustomer;
+                            }
+
+                            report[generatedCustomer.Id].Products.Add(generatedProduct);
+
+                            return generatedCustomer;
+                        }
+                    );
+
+                    return Ok(report);
+                }
+            }
+
             using (IDbConnection conn = Connection)
             {
-                IEnumerable<Customer> customers = await conn.QueryAsync<Customer>(sql);
-                return Ok(customers);
+                IEnumerable<Customer> customer = await conn.QueryAsync<Customer>(sql);
+                return Ok(customer);
             }
         }
 
@@ -132,9 +170,9 @@ namespace BangazonApi.Controllers
                 }
             }
 
-
-
         }
+
+
 
             private bool CustomerExists(int id)
             {
