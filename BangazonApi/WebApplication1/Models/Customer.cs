@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BangazonAPI.Data
+namespace BangazonApi
 {
     public class Customer
     {

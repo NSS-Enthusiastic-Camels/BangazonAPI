@@ -10,7 +10,7 @@ using BangazonAPI.Data;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
-namespace BangazonAPI.Controllers
+namespace BangazonApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

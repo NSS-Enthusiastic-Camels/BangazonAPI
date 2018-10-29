@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BangazonAPI.Data
+namespace BangazonApi
 {
     public class Product
     {
