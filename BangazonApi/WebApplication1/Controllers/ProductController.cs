@@ -104,7 +104,7 @@ namespace BangazonAPI.Controllers
                         return product;
                     }
                 );
-                return Ok(products);
+                return Ok(products.Single());
             }
         }
 
