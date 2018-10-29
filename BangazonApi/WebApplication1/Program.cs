@@ -8,7 +8,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
+<<<<<<< HEAD
 namespace BangazonAPI
+=======
+namespace BangazonApi
+>>>>>>> master
 {
 	public class Program
 	{

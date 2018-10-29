@@ -10,7 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+<<<<<<< HEAD
 namespace BangazonAPI
+=======
+namespace BangazonApi
+>>>>>>> master
 {
 	public class Startup
 	{
