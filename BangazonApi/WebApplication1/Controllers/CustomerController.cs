@@ -37,7 +37,7 @@ namespace BangazonApi.Controllers
 
         // GET api/customers
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string q)
         {
             string sql = @"
             SELECT
@@ -47,6 +47,15 @@ namespace BangazonApi.Controllers
             FROM Customer c
             WHERE 1=1
             ";
+
+            if (q != null)
+            {
+                string isQ = $@"
+                    AND c.FirstName LIKE '%{q}%'
+                    OR c.LastName LIKE '%{q}%'
+                ";
+                sql = $"{sql} {isQ}";
+            }
 
             using (IDbConnection conn = Connection)
             {
@@ -104,7 +113,7 @@ namespace BangazonApi.Controllers
                         }
                     );
 
-                    return Ok(report);
+                    return Ok(report.Values);
                 }
 
                 if (_include == "payments")
@@ -138,7 +147,7 @@ namespace BangazonApi.Controllers
                         }
                     );
 
-                    return Ok(report);
+                    return Ok(report.Values);
                     
                 }
             }
