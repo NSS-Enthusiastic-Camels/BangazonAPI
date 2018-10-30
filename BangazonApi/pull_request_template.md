@@ -1,17 +1,20 @@
 ## Link to Ticket
-Closes # [Link](https://github.com/NSS-Enthusiastic-Camels/BangazonAPI/issues/1)
+closes # [Link](https://github.com/NSS-Enthusiastic-Camels/BangazonAPI/issues/3)
 
 ## Description of Proposed Changes
-- Created model for PaymentTypes
-- Created mvc for PaymentTypes
+
+- Create model for ProductTypes
+- Created mvc for ProductTypes
+
 
 ## Steps to Test
 
 Outline the steps to test
 
-```sh
+
+```
 git fetch --all
-git checkout <paymentTypeModel>
+git checkout <Product-Type>
 Add filler paymentType data into your SQL
 Test POST, PUT, DELETE, and GET in POSTMAN
 ```
@@ -21,13 +24,15 @@ Test POST, PUT, DELETE, and GET in POSTMAN
 
 List general components of the application that this PR will affect:
 
-* PaymentTypeModel and PaymentTypeModelController
+* ProductTypeModel and ProductTypeModelController
+
 
 ## Mentions @username
 
 @alexfont321
-@priyankagargc27
 @stjepad
+@markhale94
+
 
 ## Definition of Done
 
