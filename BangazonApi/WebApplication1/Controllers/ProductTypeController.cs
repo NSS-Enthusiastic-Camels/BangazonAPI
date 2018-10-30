@@ -7,10 +7,10 @@ using Dapper;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using BangazonAPI.Data;
+using BangazonAPI;
 using Microsoft.AspNetCore.Http;
 
-namespace BangazonAPI.Controllers
+namespace BangazonApi.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
