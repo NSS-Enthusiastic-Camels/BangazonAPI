@@ -98,13 +98,20 @@ namespace BangazonApi.Controllers
                                 report[generatedCustomer.Id] = generatedCustomer;
                             }
 
-                            report[generatedCustomer.Id].Products.Add(generatedProduct);
+                            report[generatedCustomer.Id].products.Add(generatedProduct);
 
                             return generatedCustomer;
                         }
                     );
 
                     return Ok(report);
+                }
+
+                if (_include == "payments")
+                {
+                   // Dictionary<int, Payment> report = new Dictionary<int, Customer>();
+
+
                 }
             }
 
