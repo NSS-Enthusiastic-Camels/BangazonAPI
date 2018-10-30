@@ -14,6 +14,7 @@ namespace BangazonAPI
         public string LastName { get; set; }
 
         public List<Product> products = new List<Product>();
+        public List<PaymentType> paymentTypes = new List<PaymentType>();
     }
     
 

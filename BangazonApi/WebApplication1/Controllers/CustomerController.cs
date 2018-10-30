@@ -109,9 +109,37 @@ namespace BangazonApi.Controllers
 
                 if (_include == "payments")
                 {
-                   // Dictionary<int, Payment> report = new Dictionary<int, Customer>();
+                   Dictionary<int, Customer> report = new Dictionary<int, Customer>();
 
+                    IEnumerable<Customer> custAndPayType = Connection.Query<Customer, PaymentType, Customer>(
+                        $@"
+                        select
+                        c.Id,
+                        c.FirstName,
+                        c.LastName,
+                        pt.Id,
+                        pt.Name,
+                        pt.AcctNumber,
+                        pt.CustomerId
+                        from Customer c
+                        join PaymentType pt on c.Id = pt.CustomerId
+                        where c.Id = {id};
+                        ",
 
+                        (generatedCustomer, generatedPaymentType) => {
+                            if (!report.ContainsKey(generatedCustomer.Id))
+                            {
+                                report[generatedCustomer.Id] = generatedCustomer;
+                            }
+
+                            report[generatedCustomer.Id].paymentTypes.Add(generatedPaymentType);
+
+                            return generatedCustomer;
+                        }
+                    );
+
+                    return Ok(report);
+                    
                 }
             }
 
