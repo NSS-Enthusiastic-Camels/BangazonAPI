@@ -41,6 +41,8 @@ namespace BangazonApi.Controllers
                 p.Price,
                 p.Description,
                 p.Quantity,
+                p.CustomerId,
+                p.ProductTypeId,
                 c.Id,
                 c.FirstName,
                 c.LastName,
