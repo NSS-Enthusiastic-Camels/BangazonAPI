@@ -80,6 +80,10 @@ CREATE TABLE TrainingProgram (
 	MaxAttendees INTEGER NOT NULL
 );
 
+insert into TrainingProgram (StartDate, EndDate, MaxAttendees) values (2018-11-29, 2018-11-31, 12);
+insert into TrainingProgram (StartDate, EndDate, MaxAttendees) values (2018-12-12, 2018-12-31, 16);
+
+
 CREATE TABLE EmployeeTraining (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
 	EmployeeId INTEGER NOT NULL,
@@ -117,7 +121,6 @@ CREATE TABLE Product (
 );
 
 INSERT INTO Product (ProductTypeId, CustomerId, Price, Title, [Description], Quantity) VALUES (1, 1, 999, 'Blu-Ray/DVD/VHS/CASSETTE/Vinyl Combo Kit', 'Terribly Overpriced PoS', 99);
-
 INSERT INTO Product (ProductTypeId, CustomerId, Price, Title, [Description], Quantity) VALUES (2, 2, 2.99, 'Chicken Nuggets', '4 piece Play-Doh masterpiece. Praise Be Approved', 20000);
 
 CREATE TABLE PaymentType (
@@ -127,8 +130,8 @@ CREATE TABLE PaymentType (
 	CustomerId INTEGER NOT NULL,
     CONSTRAINT FK_PaymentType_Customer FOREIGN KEY(CustomerId) REFERENCES Customer(Id)
 );
-INSERT INTO PaymentType (AcctNumber, [Name], CustomerId) VALUES (111111111, 'John Doe', 1);
-INSERT INTO PaymentType (AcctNumber, [Name], CustomerId) VALUES (222222222, 'Mary Sue', 2);
+INSERT INTO PaymentType (AcctNumber, [Name], CustomerId) VALUES (111111111, 'American Express', 1);
+INSERT INTO PaymentType (AcctNumber, [Name], CustomerId) VALUES (222222222, 'Visa', 2);
 
 CREATE TABLE [Order] (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
@@ -137,6 +140,9 @@ CREATE TABLE [Order] (
     CONSTRAINT FK_Order_Customer FOREIGN KEY(CustomerId) REFERENCES Customer(Id),
     CONSTRAINT FK_Order_Payment FOREIGN KEY(PaymentTypeId) REFERENCES PaymentType(Id)
 );
+INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (1, 1);
+INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (2, 2);
+
 
 CREATE TABLE OrderProduct (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
