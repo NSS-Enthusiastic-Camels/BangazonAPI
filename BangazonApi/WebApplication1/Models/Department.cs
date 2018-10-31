@@ -12,7 +12,7 @@ namespace BangazonApi
 
         public int Budget { get; set; }
 
-
+        public List<Employee> employees = new List<Employee>();
     }
 
 

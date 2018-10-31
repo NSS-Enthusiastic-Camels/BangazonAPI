@@ -32,7 +32,7 @@ namespace BangazonApi.Controllers
 
         // GET api/students?q=Taco
         [HttpGet]
-        public async Task<IActionResult> Get(string q)
+        public async Task<IActionResult> Get( string _filter, int _gt)
         {
             string sql = @"
             SELECT
@@ -43,7 +43,16 @@ namespace BangazonApi.Controllers
             WHERE 1=1
             ";
 
-           // Console.WriteLine(sql);
+            if (_gt != null && _filter == "budget")
+            {
+                string isGt = $@"
+                    AND d.Budget > '{_gt}'
+       
+                ";
+                sql = $"{sql} {isGt}";
+            }
+
+            // Console.WriteLine(sql);
 
             using (IDbConnection conn = Connection)
             {
@@ -54,7 +63,7 @@ namespace BangazonApi.Controllers
                 return Ok(departments);
             }
         }
-
+        /*
         // GET api/students/5
         [HttpGet("{id}", Name = "GetDepartment")]
         public async Task<IActionResult> Get([FromRoute]int id)
@@ -75,7 +84,74 @@ namespace BangazonApi.Controllers
                 );
                 return Ok(departments.Single());
             }
+        }*/
+
+
+        // GET api/Customer/5?_include=products
+        //this  GET api/Department/2?_include=employees
+        [HttpGet("{id}", Name = "GetDepartment")]
+        public async Task<IActionResult> Get([FromRoute]int id, string _include)
+        {
+            string sql = $@"
+            SELECT
+                d.Id,
+                d.Name,
+                d.Budget
+            FROM Department d
+            WHERE d.Id = {id}
+            ";
+
+
+            if (_include != null)
+            {
+                if (_include == "employees")
+                {
+                    Dictionary<int, Department> report = new Dictionary<int, Department>();
+
+                    IEnumerable<Department> custAndProd = Connection.Query<Department, Employee, Department>(
+                       $@"
+                    SELECT 
+                        d.Id,
+                        d.Name,
+                        d.Budget,
+
+                        e.Id,
+                        e.FirstName,
+                        e.LastName,
+                        e.IsSuperVisor,
+                        e.DepartmentId
+                       
+                    FROM Department d
+                    JOIN Employee e ON d.Id = e.DepartmentId
+                    WHERE d.Id = {id};
+                ",
+                        (generatedDepartment, generatedEmployee) => {
+                            if (!report.ContainsKey(generatedDepartment.Id))
+                            {
+                                report[generatedDepartment.Id] = generatedDepartment;
+                            }
+
+                            report[generatedDepartment.Id].employees.Add(generatedEmployee);
+
+                            return generatedDepartment;
+                        }
+                    );
+
+                    return Ok(report.Values);
+                }
+
+               
+            }
+
+            using (IDbConnection conn = Connection)
+            {
+                IEnumerable<Department> department = await conn.QueryAsync<Department>(sql);
+                return Ok(department);
+            }
         }
+
+
+
 
         // Add new one
         // POST api/students
