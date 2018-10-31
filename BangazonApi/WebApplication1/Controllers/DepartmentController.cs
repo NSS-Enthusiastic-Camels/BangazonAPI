@@ -46,7 +46,7 @@ namespace BangazonApi.Controllers
             if (_gt != null && _filter == "budget")
             {
                 string isGt = $@"
-                    AND d.Budget > '{_gt}'
+                    AND d.Budget >= '{_gt}'
        
                 ";
                 sql = $"{sql} {isGt}";
