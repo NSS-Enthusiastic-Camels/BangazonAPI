@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using BangazonAPI;
 
 namespace BangazonApi.Controllers
 {
