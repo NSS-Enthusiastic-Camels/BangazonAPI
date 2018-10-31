@@ -1,4 +1,4 @@
-﻿using BangazonAPI;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +15,10 @@ namespace BangazonApi
         public int Quantity { get; set; }
         public DateTime CreatedAt { get; set; }
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
         public int ProductTypeId { get; set; }
-        //public ProductType ProductType { get; set; }
+        public Customer Customer { get; set; }
+        public ProductType ProductType { get; set; }
     }
 }
+
+
