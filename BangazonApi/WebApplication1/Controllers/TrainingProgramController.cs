@@ -144,7 +144,33 @@ namespace BangazonApi.Controllers
 
         }
 
+        //DELETE TrainingProgram 
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id, [FromBody] TrainingProgram tp)
+        {
+            string sql = $@"DELETE FROM TrainingProgram WHERE Id = {id}";
+
+            using (IDbConnection conn = Connection)
+            {
+                if (tp.StartDate > DateTime.Now)
+                {
+                    int rowsAffected = await conn.ExecuteAsync(sql);
+                    if (rowsAffected > 0)
+                    {
+                        return new StatusCodeResult(StatusCodes.Status204NoContent);
+                    }
+                    throw new Exception("No rows affected");
+
+                }
+                else
+                {
+                    throw new Exception("Cannot Delete");
+                }
+               
+            }
+
+        }
 
         private bool TrainingProgramExists(int id)
         {
