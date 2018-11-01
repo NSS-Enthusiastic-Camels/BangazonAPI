@@ -18,9 +18,10 @@ namespace BangazonApi
 
         public int DepartmentId { get; set; }
 
-        public string DepartmentName { get; set; }
+        public string DepartmentName  { get; set; }
 
-        //public Computer Computer { get; set; }
+        public Computer Computer { get; set; }
+
     }
 
 }

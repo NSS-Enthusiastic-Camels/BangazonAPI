@@ -1,5 +1,4 @@
-﻿
-DELETE FROM OrderProduct;
+﻿DELETE FROM OrderProduct;
 DELETE FROM ComputerEmployee;
 DELETE FROM EmployeeTraining;
 DELETE FROM Employee;
@@ -154,7 +153,6 @@ CREATE TABLE [Order] (
 INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (1, 1);
 INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (2, 2);
 
-
 CREATE TABLE OrderProduct (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
 	OrderId INTEGER NOT NULL,
@@ -162,3 +160,11 @@ CREATE TABLE OrderProduct (
     CONSTRAINT FK_OrderProduct_Product FOREIGN KEY(ProductId) REFERENCES Product(Id),
     CONSTRAINT FK_OrderProduct_Order FOREIGN KEY(OrderId) REFERENCES [Order](Id)
 );
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
