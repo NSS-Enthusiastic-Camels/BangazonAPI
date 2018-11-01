@@ -38,17 +38,23 @@ namespace BangazonApi.Controllers
                 e.LastName,
                 e.IsSuperVisor,
                 e.DepartmentId,
+                c.Id, 
+                c.PurchaseDate,
                 d.Id,
-                d.Name
+                d.Name,
+                d.Budget
                FROM Employee e
-            join Department d on e.DepartmentId = d.Id";
+            join Department d on e.DepartmentId = d.Id
+            left join ComputerEmployee ce on ce.EmployeeId = e.Id
+            left join Computer c on ce.ComputerId = c.Id";
             using (IDbConnection conn = Connection)
             {
-                var employeeQuerySet = await conn.QueryAsync<Employee, Department, Employee>(
+                var employeeQuerySet = await conn.QueryAsync<Employee,Computer,Department, Employee>(
                     sql,
-                    (employee,department) =>
+                    (employee,computer,department) =>
                     {
                         employee.DepartmentName = department.Name;
+                        employee.Computer = computer;
                         return employee;
                     }
                 );
@@ -64,7 +70,7 @@ namespace BangazonApi.Controllers
             string sql = $@"
            select 
             e.Id, e.FirstName, e.LastName, d.Id,e.DepartmentId,
- d.Name, c.Id, c.PurchaseDate
+            d.Name, c.Id, c.PurchaseDate
             FROM Employee e 
             join Department d on e.DepartmentId = d.Id
             left join ComputerEmployee ce on ce.EmployeeId = e.Id
