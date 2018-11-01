@@ -12,7 +12,6 @@ DELETE FROM ProductType;
 DELETE FROM Customer;
 
 
-
 ALTER TABLE Employee DROP CONSTRAINT [FK_EmployeeDepartment];
 ALTER TABLE ComputerEmployee DROP CONSTRAINT [FK_ComputerEmployee_Employee];
 ALTER TABLE ComputerEmployee DROP CONSTRAINT [FK_ComputerEmployee_Computer];
@@ -139,6 +138,7 @@ CREATE TABLE [Order] (
 );
 INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (1, 1);
 INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (2, 2);
+INSERT INTO [Order] (CustomerId) VALUES (1);
 
 CREATE TABLE OrderProduct (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
@@ -147,3 +147,11 @@ CREATE TABLE OrderProduct (
     CONSTRAINT FK_OrderProduct_Product FOREIGN KEY(ProductId) REFERENCES Product(Id),
     CONSTRAINT FK_OrderProduct_Order FOREIGN KEY(OrderId) REFERENCES [Order](Id)
 );
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
