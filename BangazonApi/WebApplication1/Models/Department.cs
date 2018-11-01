@@ -12,15 +12,6 @@ namespace BangazonApi
 
         public int Budget { get; set; }
 
-<<<<<<< HEAD
-        public List<Product> employees = new List<Product>();
-    }
-}
-=======
         public List<Employee> employees = new List<Employee>();
     }
-
-
-
 }
->>>>>>> master
