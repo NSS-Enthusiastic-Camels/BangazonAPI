@@ -165,6 +165,7 @@ INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,1);
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,2);
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,1);
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,2);
+/*
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,1);
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
-INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2); */
