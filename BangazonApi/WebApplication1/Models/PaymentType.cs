@@ -1,6 +1,3 @@
-using BangazonAPI;
-using System.Collections.Generic;
-
 namespace BangazonApi
 {
 	public class PaymentType
