@@ -69,7 +69,7 @@ namespace BangazonApi.Controllers
         {
             string sql = $@"
            select 
-            e.Id, e.FirstName, e.LastName, d.Id,e.DepartmentId,
+            e.Id, e.FirstName, e.LastName, e.DepartmentId,d.Id,
             d.Name, c.Id, c.PurchaseDate
             FROM Employee e 
             join Department d on e.DepartmentId = d.Id
