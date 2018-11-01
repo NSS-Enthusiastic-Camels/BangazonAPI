@@ -8,8 +8,6 @@ namespace BangazonApi
 {
     public class Employee
     {
-         
-    
         public int Id { get; set; }
 
         public string FirstName { get; set; }
@@ -20,9 +18,7 @@ namespace BangazonApi
 
         public int DepartmentId { get; set; }
 
-
         public string DepartmentName  { get; set; }
-
 
         public Computer Computer { get; set; }
  }
