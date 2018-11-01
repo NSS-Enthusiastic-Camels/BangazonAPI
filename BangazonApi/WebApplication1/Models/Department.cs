@@ -14,7 +14,4 @@ namespace BangazonApi
 
         public List<Employee> employees = new List<Employee>();
     }
-
-
-
 }
