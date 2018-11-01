@@ -46,6 +46,8 @@ CREATE TABLE Department (
 	Budget 	INTEGER NOT NULL
 );
 
+insert into Department ([Name], Budget) values ('Tech', 2000);
+
 CREATE TABLE Employee (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
 	FirstName VARCHAR(55) NOT NULL,
@@ -54,6 +56,9 @@ CREATE TABLE Employee (
 	IsSuperVisor BIT NOT NULL DEFAULT(0),
     CONSTRAINT FK_EmployeeDepartment FOREIGN KEY(DepartmentId) REFERENCES Department(Id)
 );
+
+insert into Employee (FirstName,LastName,DepartmentId,IsSuperVisor) VALUES ('Mark','Hale',1,1);
+insert into Employee (FirstName,LastName,DepartmentId,IsSuperVisor) VALUES ('Mark','Hale',1,0);
 
 CREATE TABLE Computer (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
@@ -79,6 +84,10 @@ CREATE TABLE TrainingProgram (
 	MaxAttendees INTEGER NOT NULL
 );
 
+insert into TrainingProgram (StartDate, EndDate, MaxAttendees) values (2018-11-29, 2018-11-31, 12);
+insert into TrainingProgram (StartDate, EndDate, MaxAttendees) values (2018-12-12, 2018-12-31, 16);
+
+
 CREATE TABLE EmployeeTraining (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
 	EmployeeId INTEGER NOT NULL,
@@ -86,6 +95,12 @@ CREATE TABLE EmployeeTraining (
     CONSTRAINT FK_EmployeeTraining_Employee FOREIGN KEY(EmployeeId) REFERENCES Employee(Id),
     CONSTRAINT FK_EmployeeTraining_Training FOREIGN KEY(TrainingProgramId) REFERENCES TrainingProgram(Id)
 );
+
+insert into EmployeeTraining (EmployeeId, TrainingProgramId) values (1,1);
+insert into EmployeeTraining (EmployeeId, TrainingProgramId) values (1,2);
+insert into EmployeeTraining (EmployeeId, TrainingProgramId) values (2,1);
+insert into EmployeeTraining (EmployeeId, TrainingProgramId) values (2,2);
+
 
 CREATE TABLE ProductType (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
@@ -116,7 +131,6 @@ CREATE TABLE Product (
 );
 
 INSERT INTO Product (ProductTypeId, CustomerId, Price, Title, [Description], Quantity) VALUES (1, 1, 999, 'Blu-Ray/DVD/VHS/CASSETTE/Vinyl Combo Kit', 'Terribly Overpriced PoS', 99);
-
 INSERT INTO Product (ProductTypeId, CustomerId, Price, Title, [Description], Quantity) VALUES (2, 2, 2.99, 'Chicken Nuggets', '4 piece Play-Doh masterpiece. Praise Be Approved', 20000);
 
 CREATE TABLE PaymentType (
@@ -138,7 +152,6 @@ CREATE TABLE [Order] (
 );
 INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (1, 1);
 INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (2, 2);
-INSERT INTO [Order] (CustomerId) VALUES (1);
 
 CREATE TABLE OrderProduct (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
@@ -152,6 +165,7 @@ INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,1);
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,2);
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,1);
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,2);
+/*
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,1);
 INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
-INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2); */
