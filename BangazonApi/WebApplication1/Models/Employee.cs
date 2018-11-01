@@ -21,6 +21,7 @@ namespace BangazonApi
         public string DepartmentName  { get; set; }
 
         public Computer Computer { get; set; }
- }
+
+    }
 
 }
