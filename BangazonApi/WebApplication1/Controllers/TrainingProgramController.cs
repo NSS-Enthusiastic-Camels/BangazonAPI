@@ -205,11 +205,14 @@ namespace BangazonApi.Controllers
         //DELETE TrainingProgram 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id, [FromBody] TrainingProgram tp)
+        public async Task<IActionResult> Delete(int id)
         {
             string sql = $@"DELETE FROM TrainingProgram 
             WHERE Id = {id}
             ";
+            string deleteTP = "AND StartDate > CONVERT(DATETIME,{fn CURDATE()});";
+
+            sql = sql + deleteTP;
 
             using (IDbConnection conn = Connection)
             {
