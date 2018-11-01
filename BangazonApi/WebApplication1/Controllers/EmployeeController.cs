@@ -67,8 +67,8 @@ namespace BangazonApi.Controllers
  d.Name, c.Id, c.PurchaseDate
             FROM Employee e 
             join Department d on e.DepartmentId = d.Id
-            join ComputerEmployee ce on ce.EmployeeId = e.Id
-            join Computer c on ce.ComputerId = c.Id
+            left join ComputerEmployee ce on ce.EmployeeId = e.Id
+            left join Computer c on ce.ComputerId = c.Id
             WHERE e.Id = {id}";
 
             using (IDbConnection conn = Connection)
@@ -119,9 +119,9 @@ namespace BangazonApi.Controllers
             UPDATE Employee
             SET 
                 FirstName = '{employee.FirstName}',
-                LastName = {employee.FirstName},
+                LastName = '{employee.LastName}',
                 DepartmentId = '{employee.DepartmentId}',
-                IsSuperVisor = {employee.IsSuperVisor}
+                IsSuperVisor = '{employee.IsSuperVisor}'
                  WHERE Id = {id}";
 
             // Console.WriteLine(sql);
