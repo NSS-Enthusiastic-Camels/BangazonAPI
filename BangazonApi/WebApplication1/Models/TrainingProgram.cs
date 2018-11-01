@@ -15,5 +15,7 @@ namespace BangazonApi
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
+
+        public List<Employee> employees = new List<Employee>();
     }
 }

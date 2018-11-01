@@ -47,6 +47,8 @@ CREATE TABLE Department (
 	Budget 	INTEGER NOT NULL
 );
 
+insert into Department ([Name], Budget) values ('Tech', 2000);
+
 CREATE TABLE Employee (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
 	FirstName VARCHAR(55) NOT NULL,
@@ -55,6 +57,9 @@ CREATE TABLE Employee (
 	IsSuperVisor BIT NOT NULL DEFAULT(0),
     CONSTRAINT FK_EmployeeDepartment FOREIGN KEY(DepartmentId) REFERENCES Department(Id)
 );
+
+insert into Employee (FirstName,LastName,DepartmentId,IsSuperVisor) VALUES ('Mark','Hale',1,1);
+insert into Employee (FirstName,LastName,DepartmentId,IsSuperVisor) VALUES ('Mark','Hale',1,0);
 
 CREATE TABLE Computer (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
@@ -91,6 +96,12 @@ CREATE TABLE EmployeeTraining (
     CONSTRAINT FK_EmployeeTraining_Employee FOREIGN KEY(EmployeeId) REFERENCES Employee(Id),
     CONSTRAINT FK_EmployeeTraining_Training FOREIGN KEY(TrainingProgramId) REFERENCES TrainingProgram(Id)
 );
+
+insert into EmployeeTraining (EmployeeId, TrainingProgramId) values (1,1);
+insert into EmployeeTraining (EmployeeId, TrainingProgramId) values (1,2);
+insert into EmployeeTraining (EmployeeId, TrainingProgramId) values (2,1);
+insert into EmployeeTraining (EmployeeId, TrainingProgramId) values (2,2);
+
 
 CREATE TABLE ProductType (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,

@@ -23,6 +23,7 @@ namespace BangazonApi.Controllers
     public class TrainingProgramController : Controller
     {
         private readonly IConfiguration _config;
+        private object fn;
 
         public TrainingProgramController(IConfiguration config)
         {
@@ -63,17 +64,65 @@ namespace BangazonApi.Controllers
         //GET Single Training Program
 
         [HttpGet("{id}", Name = "GetTrainingProgram")]
-        public async Task<IActionResult> Get([FromRoute]int id)
+        public async Task<IActionResult> Get([FromRoute]int id, string _include)
         {
+
             string sql = $@"
-            SELECT
+                SELECT
                 tp.Id,
                 tp.MaxAttendees,
                 tp.StartDate,
                 tp.EndDate
                 from TrainingProgram tp
-            WHERE tp.Id = {id}
+                WHERE tp.Id = {id}
             ";
+
+
+            if (_include != null) 
+            {
+               if (_include == "employees") { 
+                    Dictionary<int, TrainingProgram> report = new Dictionary<int, TrainingProgram>();
+
+                    IEnumerable<TrainingProgram> tp = Connection.Query<TrainingProgram, Employee, TrainingProgram>(
+                    $@"
+                    SELECT
+                        tp.Id,
+                        tp.MaxAttendees,
+                        tp.StartDate,
+                        tp.EndDate,
+                        e.Id,
+                        e.FirstName,
+                        e.LastName,
+                        e.DepartmentId
+                        from TrainingProgram tp
+                        left join EmployeeTraining et on tp.Id = et.TrainingProgramId
+                        left join Employee e on e.Id = et.EmployeeId
+                    WHERE tp.Id = {id}
+                    ",
+
+                (gTP, gEm) =>
+                {
+                    if (!report.ContainsKey(gTP.Id))
+                    {
+                        report[gTP.Id] = gTP;
+                    }
+
+                    report[gTP.Id].employees.Add(gEm);
+
+                    return gTP;
+
+                }
+            );
+
+                    return Ok(report.Values);
+                
+                
+                
+                }
+            
+            }
+
+
 
             using (IDbConnection conn = Connection)
             {
@@ -149,24 +198,20 @@ namespace BangazonApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, [FromBody] TrainingProgram tp)
         {
-            string sql = $@"DELETE FROM TrainingProgram WHERE Id = {id}";
+            string sql = $@"DELETE FROM TrainingProgram 
+            WHERE Id = {id}
+            ";
 
             using (IDbConnection conn = Connection)
             {
-                if (tp.StartDate > DateTime.Now)
-                {
+             
                     int rowsAffected = await conn.ExecuteAsync(sql);
                     if (rowsAffected > 0)
                     {
                         return new StatusCodeResult(StatusCodes.Status204NoContent);
                     }
-                    throw new Exception("No rows affected");
-
-                }
-                else
-                {
-                    throw new Exception("Cannot Delete");
-                }
+                    throw new Exception("No rows affected");             
+       
                
             }
 
