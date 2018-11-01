@@ -1,5 +1,4 @@
-﻿
-DELETE FROM OrderProduct;
+﻿DELETE FROM OrderProduct;
 DELETE FROM ComputerEmployee;
 DELETE FROM EmployeeTraining;
 DELETE FROM Employee;
@@ -127,8 +126,8 @@ CREATE TABLE PaymentType (
 	CustomerId INTEGER NOT NULL,
     CONSTRAINT FK_PaymentType_Customer FOREIGN KEY(CustomerId) REFERENCES Customer(Id)
 );
-INSERT INTO PaymentType (AcctNumber, [Name], CustomerId) VALUES (111111111, 'John Doe', 1);
-INSERT INTO PaymentType (AcctNumber, [Name], CustomerId) VALUES (222222222, 'Mary Sue', 2);
+INSERT INTO PaymentType (AcctNumber, [Name], CustomerId) VALUES (111111111, 'American Express', 1);
+INSERT INTO PaymentType (AcctNumber, [Name], CustomerId) VALUES (222222222, 'Visa', 2);
 
 CREATE TABLE [Order] (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
@@ -137,6 +136,9 @@ CREATE TABLE [Order] (
     CONSTRAINT FK_Order_Customer FOREIGN KEY(CustomerId) REFERENCES Customer(Id),
     CONSTRAINT FK_Order_Payment FOREIGN KEY(PaymentTypeId) REFERENCES PaymentType(Id)
 );
+INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (1, 1);
+INSERT INTO [Order] (CustomerId, PaymentTypeId) VALUES (2, 2);
+INSERT INTO [Order] (CustomerId) VALUES (1);
 
 CREATE TABLE OrderProduct (
 	Id INTEGER NOT NULL PRIMARY KEY IDENTITY,
@@ -145,3 +147,11 @@ CREATE TABLE OrderProduct (
     CONSTRAINT FK_OrderProduct_Product FOREIGN KEY(ProductId) REFERENCES Product(Id),
     CONSTRAINT FK_OrderProduct_Order FOREIGN KEY(OrderId) REFERENCES [Order](Id)
 );
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (1,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (2,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,1);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
+INSERT INTO OrderProduct (OrderId, ProductId) VALUES (3,2);
