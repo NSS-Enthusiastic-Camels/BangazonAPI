@@ -41,7 +41,7 @@ namespace BangazonApi.Controllers
         //GET All Training Programs
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string _completed)
         {
             string sql = @" select
                 tp.Id,
@@ -49,8 +49,17 @@ namespace BangazonApi.Controllers
                 tp.StartDate,
                 tp.EndDate
                 from TrainingProgram tp
-                where 1 = 1
             ";
+
+            if (_completed != null) {
+                if (_completed == "false")
+                {
+                    string addTosql = "where StartDate >  CONVERT(DATETIME, {fn CURDATE()})";
+
+                    sql = sql + addTosql;
+                
+                }
+            }
 
             using (IDbConnection conn = Connection)
             {
